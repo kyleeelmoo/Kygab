@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morata-Dominguez Portal - Lease Management</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="nav-brand">Morata-Dominguez</div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="tenants.html">Tenants</a></li>
+            <li><a href="maintenance.html">Maintenance</a></li>
+            <li><a href="leases.html" class="active">Leases</a></li>
+            <li><a href="financials.html">Financials</a></li>
+            <li><a href="inventory.html">Inventory</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>📄 Lease Management</h1>
+        <p style="margin-bottom: 1.5rem; color: #b794f6;">View and manage lease agreements, terms, and renewals. Track lease status and important dates.</p>
+        
+        <div class="toolbar">
+            <button class="btn btn-primary" id="addLeaseBtn">Add New Lease</button>
+            <input type="text" id="searchBox" placeholder="Search leases..." class="search-input">
+            <select id="filterStatus" class="filter-select">
+                <option value="">All Status</option>
+                <option value="active">Active</option>
+                <option value="expired">Expired</option>
+                <option value="pending">Pending</option>
+            </select>
+        </div>
+        
+        <div id="leasesTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tenant</th>
+                        <th>Unit</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Monthly Rent</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="leasesBody">
+                    <!-- Lease rows will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Add/Edit Lease Modal -->
+    <div id="leaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLeaseModal">&times;</span>
+            <h2 id="modalTitle">Add New Lease</h2>
+            <form id="leaseForm">
+                <div class="form-group">
+                    <label for="leaseTenant">Tenant Name:</label>
+                    <input type="text" id="leaseTenant" required>
+                </div>
+                <div class="form-group">
+                    <label for="leaseUnit">Unit:</label>
+                    <input type="text" id="leaseUnit" required>
+                </div>
+                <div class="form-group">
+                    <label for="leaseStartDate">Start Date:</label>
+                    <input type="date" id="leaseStartDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="leaseEndDate">End Date:</label>
+                    <input type="date" id="leaseEndDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="leaseRent">Monthly Rent ($):</label>
+                    <input type="number" id="leaseRent" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="leaseDeposit">Security Deposit ($):</label>
+                    <input type="number" id="leaseDeposit" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="leaseTerms">Lease Terms:</label>
+                    <textarea id="leaseTerms" rows="4" placeholder="Enter lease terms and conditions..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="leaseStatus">Status:</label>
+                    <select id="leaseStatus" required>
+                        <option value="pending">Pending</option>
+                        <option value="active">Active</option>
+                        <option value="expired">Expired</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Lease</button>
+                    <button type="button" class="btn btn-secondary" id="cancelLeaseBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- View Lease Details Modal -->
+    <div id="viewLeaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeViewModal">&times;</span>
+            <h2>Lease Details</h2>
+            <div id="leaseDetails">
+                <!-- Lease details will be inserted here -->
+            </div>
+            <button class="btn btn-secondary" id="closeDetailsBtn">Close</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Made by: Kyle &amp; Mashe Morata</p>
+    </footer>
+    
+    <script src="assets/js/leases.js"></script>
+</body>
+</html>
