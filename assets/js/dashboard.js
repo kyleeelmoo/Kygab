@@ -9,9 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', function(e) {
         e.preventDefault();
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('username');
-        window.location.href = 'index.html';
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        }
     });
     
     // Load inventory stats
@@ -25,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Microsoft connect button
     document.getElementById('msConnectBtn').addEventListener('click', function() {
-        alert('Microsoft integration feature coming soon! This will connect to Microsoft Graph API for task sync and OneDrive storage.');
+        showMessage('Microsoft integration feature coming soon! This will connect to Microsoft Graph API for task sync and OneDrive storage.', 'success');
     });
 });
 
@@ -70,5 +72,18 @@ function loadRecentLogs() {
 function checkMicrosoftStatus() {
     const msConnected = localStorage.getItem('msConnected') === 'true';
     document.getElementById('msConnected').textContent = msConnected ? 'Connected' : 'Not Connected';
-    document.getElementById('msConnected').style.color = msConnected ? '#00ff88' : '#ff8800';
+    document.getElementById('msConnected').style.color = msConnected ? '#a78bfa' : '#ff8800';
+}
+
+function showMessage(text, type = 'success') {
+    const container = document.getElementById('messageContainer');
+    const message = document.createElement('div');
+    message.className = `message ${type} show`;
+    message.textContent = text;
+    container.appendChild(message);
+    
+    setTimeout(() => {
+        message.classList.remove('show');
+        setTimeout(() => message.remove(), 300);
+    }, 3000);
 }

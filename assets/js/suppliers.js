@@ -9,9 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', function(e) {
         e.preventDefault();
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('username');
-        window.location.href = 'index.html';
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        }
     });
     
     // Modal functionality
@@ -82,6 +84,7 @@ function saveCustomLink() {
     
     loadCustomLinks();
     closeModal();
+    showMessage('Custom link added successfully!', 'success');
 }
 
 function loadCustomLinks() {
@@ -113,6 +116,7 @@ function deleteCustomLink(storageKey, id) {
         links = links.filter(link => link.id !== id);
         localStorage.setItem(storageKey, JSON.stringify(links));
         loadCustomLinks();
+        showMessage('Custom link deleted successfully!', 'success');
     }
 }
 
@@ -137,7 +141,7 @@ function addCustomSupplier() {
     
     document.getElementById('supplierForm').reset();
     loadCustomSuppliers();
-    alert('Supplier added successfully!');
+    showMessage('Supplier added successfully!', 'success');
 }
 
 function loadCustomSuppliers() {
@@ -167,5 +171,19 @@ function deleteSupplier(id) {
         suppliers = suppliers.filter(supplier => supplier.id !== id);
         localStorage.setItem('customSuppliers', JSON.stringify(suppliers));
         loadCustomSuppliers();
+        showMessage('Supplier deleted successfully!', 'success');
     }
+}
+
+function showMessage(text, type = 'success') {
+    const container = document.getElementById('messageContainer');
+    const message = document.createElement('div');
+    message.className = `message ${type} show`;
+    message.textContent = text;
+    container.appendChild(message);
+    
+    setTimeout(() => {
+        message.classList.remove('show');
+        setTimeout(() => message.remove(), 300);
+    }, 3000);
 }
