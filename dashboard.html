@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuildWise Pro - Dashboard</title>
+    <title>Morata-Dominguez - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="dark-theme">
     <nav class="navbar">
-        <div class="nav-brand">BuildWise Pro</div>
+        <div class="nav-brand">Morata-Dominguez</div>
         <ul class="nav-menu">
             <li><a href="dashboard.html" class="active">Dashboard</a></li>
             <li><a href="inventory.html">Inventory</a></li>
@@ -20,10 +23,12 @@
     
     <div class="container">
         <h1>Dashboard</h1>
+        <div id="messageContainer"></div>
         
         <div class="dashboard-grid">
             <div class="card">
                 <h3>Inventory Overview</h3>
+                <p class="description">View and manage your inventory items. Track stock levels, supplier information, and get real-time alerts for low or out-of-stock items.</p>
                 <div id="inventoryStats">
                     <p>Total Items: <span id="totalItems">0</span></p>
                     <p>Out of Stock: <span id="outOfStock">0</span></p>
@@ -34,6 +39,7 @@
             
             <div class="card">
                 <h3>Recent Logsheets</h3>
+                <p class="description">Access your recent inspection logs, temperature records, and sprinkler maintenance sheets. Keep track of all facility documentation in one place.</p>
                 <div id="recentLogs">
                     <p>No recent logs</p>
                 </div>
@@ -42,6 +48,7 @@
             
             <div class="card">
                 <h3>Quick Actions</h3>
+                <p class="description">Quickly create new logs and records. Use these shortcuts to access frequently used forms and streamline your workflow.</p>
                 <button class="btn" onclick="location.href='forms.html#sprinkler'">New Sprinkler Log</button>
                 <button class="btn" onclick="location.href='forms.html#temperature'">New Temperature Log</button>
                 <button class="btn" onclick="location.href='forms.html#inspection'">New Inspection</button>
@@ -49,6 +56,7 @@
             
             <div class="card">
                 <h3>Microsoft Integration</h3>
+                <p class="description">Connect with Microsoft services to sync your tasks, calendar events, and store documents in OneDrive. Enhance collaboration and productivity.</p>
                 <div id="msStatus">
                     <p>Status: <span id="msConnected">Not Connected</span></p>
                 </div>

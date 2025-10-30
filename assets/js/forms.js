@@ -9,9 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', function(e) {
         e.preventDefault();
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('username');
-        window.location.href = 'index.html';
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        }
     });
     
     // Tab functionality
@@ -88,7 +90,7 @@ function saveSprinklerLog() {
     
     document.getElementById('sprinklerForm').reset();
     loadLogs();
-    alert('Sprinkler log saved successfully!');
+    showMessage('Sprinkler log saved successfully!', 'success');
 }
 
 function saveTemperatureLog() {
@@ -109,7 +111,7 @@ function saveTemperatureLog() {
     
     document.getElementById('temperatureForm').reset();
     loadLogs();
-    alert('Temperature log saved successfully!');
+    showMessage('Temperature log saved successfully!', 'success');
 }
 
 function saveInspectionLog() {
@@ -132,7 +134,7 @@ function saveInspectionLog() {
     
     document.getElementById('inspectionForm').reset();
     loadLogs();
-    alert('Inspection record saved successfully!');
+    showMessage('Inspection record saved successfully!', 'success');
 }
 
 function loadLogs() {
@@ -291,4 +293,17 @@ function exportToExcel(type) {
     XLSX.utils.book_append_sheet(wb, ws, `${type} Logs`);
     
     XLSX.writeFile(wb, `${type}-logsheets.xlsx`);
+}
+
+function showMessage(text, type = 'success') {
+    const container = document.getElementById('messageContainer');
+    const message = document.createElement('div');
+    message.className = `message ${type} show`;
+    message.textContent = text;
+    container.appendChild(message);
+    
+    setTimeout(() => {
+        message.classList.remove('show');
+        setTimeout(() => message.remove(), 300);
+    }, 3000);
 }

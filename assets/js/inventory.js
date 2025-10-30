@@ -12,9 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', function(e) {
         e.preventDefault();
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('username');
-        window.location.href = 'index.html';
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        }
     });
     
     // Load inventory from localStorage
@@ -170,6 +172,9 @@ function saveItem() {
     // Refresh display
     displayInventory(inventory);
     
+    // Show success message
+    showMessage(currentEditId ? 'Item updated successfully!' : 'Item added successfully!', 'success');
+    
     // Close modal
     closeModal();
 }
@@ -186,6 +191,7 @@ function deleteItem(id) {
         inventory = inventory.filter(item => item.id !== id);
         localStorage.setItem('inventory', JSON.stringify(inventory));
         displayInventory(inventory);
+        showMessage('Item deleted successfully!', 'success');
     }
 }
 
@@ -210,4 +216,17 @@ function filterInventory() {
     }
     
     displayInventory(filtered);
+}
+
+function showMessage(text, type = 'success') {
+    const container = document.getElementById('messageContainer');
+    const message = document.createElement('div');
+    message.className = `message ${type} show`;
+    message.textContent = text;
+    container.appendChild(message);
+    
+    setTimeout(() => {
+        message.classList.remove('show');
+        setTimeout(() => message.remove(), 300);
+    }, 3000);
 }
