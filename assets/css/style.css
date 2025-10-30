@@ -1,27 +1,578 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body.dark-theme {
     background-color: #121212;
     color: #00ff88;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
 }
+
+/* Navigation Bar */
+.navbar {
+    background-color: #1e1e1e;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 255, 136, 0.2);
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00ff88;
+    display: inline-block;
+    margin-right: 2rem;
+}
+
+.nav-menu {
+    display: inline-block;
+    list-style: none;
+}
+
+.nav-menu li {
+    display: inline-block;
+    margin: 0 1rem;
+}
+
+.nav-menu a {
+    color: #00ff88;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    background-color: #00ff88;
+    color: #000;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Login Container */
 .login-container {
     max-width: 400px;
-    margin: auto;
+    margin: 5rem auto;
     padding: 2em;
     background-color: #1e1e1e;
     border-radius: 8px;
     box-shadow: 0 0 10px #00ff88;
 }
-input, button {
-    display: block;
-    width: 100%;
-    margin: 1em 0;
-    padding: 0.5em;
-    border: none;
-    border-radius: 4px;
+
+.login-container h1,
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 1rem;
 }
-button {
+
+/* Forms */
+input, textarea, select, button {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #2a2a2a;
+    color: #00ff88;
+    font-family: inherit;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #00ff88;
+}
+
+button, .btn {
     background-color: #00ff88;
     color: #000;
     font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+button:hover, .btn:hover {
+    background-color: #00cc6f;
+    transform: translateY(-2px);
+}
+
+button:active, .btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background-color: #00ff88;
+    color: #000;
+}
+
+.btn-secondary {
+    background-color: #555;
+    color: #00ff88;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Cards */
+.card {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0, 255, 136, 0.1);
+}
+
+.card h3 {
+    margin-bottom: 1rem;
+    color: #00ff88;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.dashboard-grid .card button,
+.dashboard-grid .card .btn {
+    margin-top: 0.5rem;
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-select {
+    width: auto;
+    min-width: 150px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #2a2a2a;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+th {
+    font-weight: bold;
+    color: #00ff88;
+}
+
+tr:hover {
+    background-color: #2a2a2a;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    background-color: #1e1e1e;
+    margin: 5% auto;
+    padding: 2rem;
+    border: 1px solid #00ff88;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.close {
+    color: #00ff88;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #00cc6f;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #00ff88;
+    font-weight: 500;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.form-actions button {
+    flex: 1;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #333;
+}
+
+.tab-btn {
+    padding: 1rem 2rem;
+    background-color: transparent;
+    color: #00ff88;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tab-btn:hover {
+    background-color: #2a2a2a;
+}
+
+.tab-btn.active {
+    border-bottom-color: #00ff88;
+    background-color: #2a2a2a;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Logsheet Forms */
+.logsheet-form {
+    background-color: #1e1e1e;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.logs-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.log-item {
+    background-color: #2a2a2a;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 4px;
+    border-left: 3px solid #00ff88;
+}
+
+.log-item h4 {
+    margin-bottom: 0.5rem;
+}
+
+.log-item p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+/* Suppliers Grid */
+.suppliers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.supplier-card {
+    min-height: 300px;
+}
+
+.supplier-links {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.supplier-links .btn {
+    flex: 1;
+}
+
+.custom-links {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #333;
+}
+
+.custom-links h4 {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.custom-link-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background-color: #2a2a2a;
+    border-radius: 4px;
+}
+
+.custom-link-item a {
+    color: #00ff88;
+    text-decoration: none;
+    flex: 1;
+}
+
+.custom-link-item a:hover {
+    text-decoration: underline;
+}
+
+.custom-link-item button {
+    width: auto;
+    padding: 0.25rem 0.75rem;
+    margin: 0;
+    background-color: #ff4444;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+    
+    .nav-brand {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    
+    .nav-menu {
+        display: block;
+    }
+    
+    .nav-menu li {
+        display: block;
+        margin: 0.5rem 0;
+    }
+    
+    .toolbar {
+        flex-direction: column;
+    }
+    
+    .search-input,
+    .filter-select {
+        width: 100%;
+    }
+    
+    .dashboard-grid,
+    .suppliers-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tabs {
+        flex-direction: column;
+        border-bottom: none;
+    }
+    
+    .tab-btn {
+        border-bottom: none;
+        border-left: 3px solid transparent;
+    }
+    
+    .tab-btn.active {
+        border-left-color: #00ff88;
+    }
+    
+    table {
+        font-size: 0.9rem;
+    }
+    
+    th, td {
+        padding: 0.5rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .supplier-links {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 0.5rem;
+    }
+    
+    table {
+        font-size: 0.8rem;
+    }
+    
+    th, td {
+        padding: 0.25rem;
+    }
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.status-in-stock {
+    background-color: #00ff88;
+    color: #000;
+}
+
+.status-out-of-stock {
+    background-color: #ff4444;
+    color: #fff;
+}
+
+.status-ordered {
+    background-color: #ffaa00;
+    color: #000;
+}
+
+.status-low-stock {
+    background-color: #ff8800;
+    color: #000;
+}
+
+/* Action buttons in tables */
+table button {
+    width: auto;
+    padding: 0.4rem 0.8rem;
+    margin: 0.2rem;
+    font-size: 0.85rem;
+}
+
+/* Scrollbar styling for dark theme */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00ff88;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00cc6f;
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 255, 136, 0.3);
+    border-radius: 50%;
+    border-top-color: #00ff88;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Empty state messages */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #888;
+}
+
+.empty-state h3 {
+    color: #00ff88;
+    margin-bottom: 1rem;
+}
+
+/* Tooltips */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #2a2a2a;
+    color: #00ff88;
+    text-align: center;
+    border-radius: 6px;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
