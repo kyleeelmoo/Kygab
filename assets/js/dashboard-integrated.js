@@ -582,10 +582,12 @@ function deleteLog(storageKey, id) {
 }
 
 // Export functions
+// The 'type' parameter is reserved for future use to specify which data set to export.
 function exportToPDF(type) {
     showToast('PDF export feature coming soon!', 'warning');
 }
 
+// The 'type' parameter is reserved for future use to specify which data set to export.
 function exportToExcel(type) {
     showToast('Excel export feature coming soon!', 'warning');
 }
