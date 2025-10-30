@@ -52,20 +52,30 @@ jobs:
           done
 
       # Check JavaScript syntax
-      - name: Check JavaScript
+      - name: Validate JavaScript files
         run: |
-          echo "Checking JavaScript files..."
           find assets/js -name "*.js" -type f | while read file; do
             echo "Checking $file"
             node -c "$file" || exit 1
           done
 
-      # Optional: Deploy to GitHub Pages
+      # Set up Git configuration
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          exclude_assets: '.github,node_modules,.gitignore'
+        run: |
+          if ! git ls-remote --exit-code origin gh-pages; then
+            git checkout --orphan gh-pages
+            git commit --allow-empty -m "Initial commit"
+            git push origin gh-pages
+          fi
+          git fetch origin gh-pages
+          git checkout gh-pages
+          echo "Deploying to GitHub Pages"
+          # Add deployment steps here
 
