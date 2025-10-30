@@ -70,5 +70,5 @@ function loadRecentLogs() {
 function checkMicrosoftStatus() {
     const msConnected = localStorage.getItem('msConnected') === 'true';
     document.getElementById('msConnected').textContent = msConnected ? 'Connected' : 'Not Connected';
-    document.getElementById('msConnected').style.color = msConnected ? '#00ff88' : '#ff8800';
+    document.getElementById('msConnected').style.color = msConnected ? '#8a2be2' : '#ff8800';
 }
