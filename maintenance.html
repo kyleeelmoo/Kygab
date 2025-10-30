@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morata-Dominguez - Maintenance Requests</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="nav-brand">Morata-Dominguez</div>
+        <ul class="nav-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="tenants.html">Tenant Management</a></li>
+            <li><a href="maintenance.html" class="active">Maintenance Requests</a></li>
+            <li><a href="leases.html">Lease Information</a></li>
+            <li><a href="financials.html">Financials</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>Maintenance Requests</h1>
+        
+        <div class="toolbar">
+            <button class="btn btn-primary" id="addRequestBtn">Submit New Request</button>
+            <input type="text" id="searchBox" placeholder="Search requests..." class="search-input">
+            <select id="filterStatus" class="filter-select">
+                <option value="">All Requests</option>
+                <option value="pending">Pending</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+            </select>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="active">Active Requests</button>
+            <button class="tab-btn" data-tab="completed">Completed Requests</button>
+        </div>
+        
+        <div id="active" class="tab-content active">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Unit</th>
+                        <th>Issue</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Date Submitted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="activeRequestsBody">
+                    <!-- Active requests will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="completed" class="tab-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Unit</th>
+                        <th>Issue</th>
+                        <th>Priority</th>
+                        <th>Date Completed</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="completedRequestsBody">
+                    <!-- Completed requests will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Modal for Add/Edit Request -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Submit New Maintenance Request</h2>
+            <form id="requestForm">
+                <input type="hidden" id="requestId">
+                <div class="form-group">
+                    <label for="unit">Unit Number:</label>
+                    <input type="text" id="unit" required>
+                </div>
+                <div class="form-group">
+                    <label for="issue">Issue Description:</label>
+                    <textarea id="issue" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority:</label>
+                    <select id="priority" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="urgent">Urgent</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" required>
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Additional Notes:</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="assets/js/maintenance.js"></script>
+</body>
+</html>
