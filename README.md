@@ -1,0 +1,2 @@
+# Buildingwise-by-kyle
+# BuildWise Pro by Kyle  ## Description BuildWise Pro is a personal tracking application designed to help superintendents manage their tasks, schedules, and reports efficiently and effectively.  ## Features - Task and schedule management. - Report creation and tracking. - User-friendly interface.  ## Installation 1. Clone the repository:

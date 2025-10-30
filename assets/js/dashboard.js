@@ -1,0 +1,1 @@
+// JavaScript functionality for dashboard.js
