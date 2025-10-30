@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuildWise Pro - Logsheets</title>
+    <title>Morata-Dominguez Portal - Logsheets</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="dark-theme">
     <nav class="navbar">
-        <div class="nav-brand">BuildWise Pro</div>
+        <div class="nav-brand">Morata-Dominguez</div>
         <ul class="nav-menu">
             <li><a href="dashboard.html">Dashboard</a></li>
             <li><a href="inventory.html">Inventory</a></li>
@@ -30,6 +30,7 @@
         <!-- Sprinkler Logsheet Tab -->
         <div id="sprinkler" class="tab-content active">
             <h2>Sprinkler Logsheet</h2>
+            <p style="margin-bottom: 1rem; color: #b794f6;">Record and track sprinkler system inspections and maintenance activities. Ensure compliance and proper system functionality.</p>
             <form id="sprinklerForm" class="logsheet-form">
                 <div class="form-group">
                     <label for="sprinklerDate">Date:</label>
@@ -66,6 +67,7 @@
         <!-- Temperature Logsheet Tab -->
         <div id="temperature" class="tab-content">
             <h2>Temperature Logsheet</h2>
+            <p style="margin-bottom: 1rem; color: #b794f6;">Monitor temperature readings across different locations. Maintain accurate records for compliance and environmental control.</p>
             <form id="temperatureForm" class="logsheet-form">
                 <div class="form-group">
                     <label for="tempDate">Date:</label>
@@ -105,6 +107,7 @@
         <!-- Inspection Records Tab -->
         <div id="inspection" class="tab-content">
             <h2>Inspection Record</h2>
+            <p style="margin-bottom: 1rem; color: #b794f6;">Document detailed inspection records for safety, structural, electrical, and other critical assessments.</p>
             <form id="inspectionForm" class="logsheet-form">
                 <div class="form-group">
                     <label for="inspectionDate">Date:</label>
@@ -162,6 +165,10 @@
             <div id="inspectionLogsList" class="logs-list"></div>
         </div>
     </div>
+    
+    <footer>
+        <p>Made by: Kyle &amp; Mashe Morata</p>
+    </footer>
     
     <!-- Include libraries for PDF and Excel export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
