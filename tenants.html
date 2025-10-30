@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morata-Dominguez - Tenant Management</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="nav-brand">Morata-Dominguez</div>
+        <ul class="nav-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="tenants.html" class="active">Tenant Management</a></li>
+            <li><a href="maintenance.html">Maintenance Requests</a></li>
+            <li><a href="leases.html">Lease Information</a></li>
+            <li><a href="financials.html">Financials</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>Tenant Management</h1>
+        
+        <div class="toolbar">
+            <button class="btn btn-primary" id="addTenantBtn">Add New Tenant</button>
+            <input type="text" id="searchBox" placeholder="Search tenants..." class="search-input">
+            <select id="filterStatus" class="filter-select">
+                <option value="">All Tenants</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="pending">Pending</option>
+            </select>
+        </div>
+        
+        <div id="tenantTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tenant Name</th>
+                        <th>Unit</th>
+                        <th>Rent</th>
+                        <th>Status</th>
+                        <th>Lease End Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tenantBody">
+                    <!-- Tenant items will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Modal for Add/Edit Tenant -->
+    <div id="tenantModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Add New Tenant</h2>
+            <form id="tenantForm">
+                <input type="hidden" id="tenantId">
+                <div class="form-group">
+                    <label for="tenantName">Tenant Name:</label>
+                    <input type="text" id="tenantName" required>
+                </div>
+                <div class="form-group">
+                    <label for="unit">Unit Number:</label>
+                    <input type="text" id="unit" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="rent">Monthly Rent:</label>
+                    <input type="number" id="rent" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="leaseStart">Lease Start Date:</label>
+                    <input type="date" id="leaseStart" required>
+                </div>
+                <div class="form-group">
+                    <label for="leaseEnd">Lease End Date:</label>
+                    <input type="date" id="leaseEnd" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" required>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes:</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="assets/js/tenants.js"></script>
+</body>
+</html>
