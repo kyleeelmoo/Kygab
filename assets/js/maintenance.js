@@ -213,9 +213,21 @@ function deleteRequest(id) {
 }
 
 function filterRequests() {
-    // This implementation has an issue - will reload original data
-    // Better implementation would be to maintain original array separately
-    loadRequests(); // Reset
+    const searchValue = document.getElementById('searchBox').value.trim().toLowerCase();
+    const statusValue = document.getElementById('filterStatus').value;
+
+    const filteredRequests = requests.filter(request => {
+        // Filter by status
+        const statusMatch = (statusValue === 'all' || request.status === statusValue);
+        // Filter by search (unit, issue, notes)
+        const searchMatch =
+            request.unit.toLowerCase().includes(searchValue) ||
+            request.issue.toLowerCase().includes(searchValue) ||
+            (request.notes && request.notes.toLowerCase().includes(searchValue));
+        return statusMatch && (searchValue === '' || searchMatch);
+    });
+
+    displayRequests(filteredRequests);
 }
 
 function showToast(message, type = 'info') {
