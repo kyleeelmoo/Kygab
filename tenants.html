@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morata-Dominguez Portal - Tenant Management</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="nav-brand">Morata-Dominguez</div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="tenants.html" class="active">Tenants</a></li>
+            <li><a href="maintenance.html">Maintenance</a></li>
+            <li><a href="leases.html">Leases</a></li>
+            <li><a href="financials.html">Financials</a></li>
+            <li><a href="inventory.html">Inventory</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>👥 Tenant Management</h1>
+        <p style="margin-bottom: 1.5rem; color: #b794f6;">Manage tenant information, contact details, and lease assignments. Track tenant history and communications.</p>
+        
+        <div class="toolbar">
+            <button class="btn btn-primary" id="addTenantBtn">Add New Tenant</button>
+            <input type="text" id="searchBox" placeholder="Search tenants..." class="search-input">
+            <select id="filterStatus" class="filter-select">
+                <option value="">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="pending">Pending</option>
+            </select>
+        </div>
+        
+        <div id="tenantsTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Lease End</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tenantsBody">
+                    <!-- Tenant rows will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Add/Edit Tenant Modal -->
+    <div id="tenantModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeTenantModal">&times;</span>
+            <h2 id="modalTitle">Add New Tenant</h2>
+            <form id="tenantForm">
+                <div class="form-group">
+                    <label for="tenantName">Full Name:</label>
+                    <input type="text" id="tenantName" required>
+                </div>
+                <div class="form-group">
+                    <label for="tenantEmail">Email:</label>
+                    <input type="email" id="tenantEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="tenantPhone">Phone:</label>
+                    <input type="tel" id="tenantPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="tenantUnit">Unit:</label>
+                    <input type="text" id="tenantUnit" required>
+                </div>
+                <div class="form-group">
+                    <label for="tenantLeaseStart">Lease Start Date:</label>
+                    <input type="date" id="tenantLeaseStart" required>
+                </div>
+                <div class="form-group">
+                    <label for="tenantLeaseEnd">Lease End Date:</label>
+                    <input type="date" id="tenantLeaseEnd" required>
+                </div>
+                <div class="form-group">
+                    <label for="tenantRent">Monthly Rent ($):</label>
+                    <input type="number" id="tenantRent" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="tenantStatus">Status:</label>
+                    <select id="tenantStatus" required>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Tenant</button>
+                    <button type="button" class="btn btn-secondary" id="cancelTenantBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- View Tenant Details Modal -->
+    <div id="viewTenantModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeViewModal">&times;</span>
+            <h2>Tenant Details</h2>
+            <div id="tenantDetails">
+                <!-- Tenant details will be inserted here -->
+            </div>
+            <button class="btn btn-secondary" id="closeDetailsBtn">Close</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Made by: Kyle &amp; Mashe Morata</p>
+    </footer>
+    
+    <script src="assets/js/tenants.js"></script>
+</body>
+</html>
