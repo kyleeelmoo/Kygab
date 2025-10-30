@@ -295,15 +295,5 @@ function exportToExcel(type) {
     XLSX.writeFile(wb, `${type}-logsheets.xlsx`);
 }
 
-function showMessage(text, type = 'success') {
-    const container = document.getElementById('messageContainer');
-    const message = document.createElement('div');
-    message.className = `message ${type} show`;
-    message.textContent = text;
-    container.appendChild(message);
-    
-    setTimeout(() => {
-        message.classList.remove('show');
-        setTimeout(() => message.remove(), 300);
-    }, 3000);
-}
+// Import showMessage from utils.js
+import { showMessage } from './utils.js';
