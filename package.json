@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "npx http-server -p 8080",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "jest"
   },
   "keywords": [
     "inventory",
@@ -15,8 +15,8 @@
   ],
   "author": "Kyle",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "jest": "^30.2.0"
   }
 }
