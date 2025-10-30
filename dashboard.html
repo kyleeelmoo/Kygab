@@ -9,54 +9,378 @@
 <body class="dark-theme">
     <nav class="navbar">
         <div class="nav-brand">BuildWise Pro</div>
-        <ul class="nav-menu">
-            <li><a href="dashboard.html" class="active">Dashboard</a></li>
-            <li><a href="inventory.html">Inventory</a></li>
-            <li><a href="forms.html">Logsheets</a></li>
-            <li><a href="suppliers.html">Suppliers</a></li>
-            <li><a href="#" id="logoutBtn">Logout</a></li>
-        </ul>
+        <div class="nav-user">
+            <span id="welcomeUser"></span>
+            <button class="btn btn-small" id="logoutBtn">Logout</button>
+        </div>
     </nav>
     
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+    
     <div class="container">
-        <h1>Dashboard</h1>
+        <h1>BuildWise Pro Dashboard</h1>
         
-        <div class="dashboard-grid">
-            <div class="card">
-                <h3>Inventory Overview</h3>
-                <div id="inventoryStats">
-                    <p>Total Items: <span id="totalItems">0</span></p>
-                    <p>Out of Stock: <span id="outOfStock">0</span></p>
-                    <p>Low Stock: <span id="lowStock">0</span></p>
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="overview">Dashboard</button>
+            <button class="tab-btn" data-tab="inventory">Inventory</button>
+            <button class="tab-btn" data-tab="logsheets">Logsheets</button>
+            <button class="tab-btn" data-tab="suppliers">Suppliers</button>
+        </div>
+        
+        <!-- Dashboard Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Inventory Overview</h3>
+                    <div id="inventoryStats">
+                        <p>Total Items: <span id="totalItems">0</span></p>
+                        <p>Out of Stock: <span id="outOfStock">0</span></p>
+                        <p>Low Stock: <span id="lowStock">0</span></p>
+                    </div>
+                    <button class="btn" onclick="switchTab('inventory')">Manage Inventory</button>
                 </div>
-                <a href="inventory.html" class="btn">Manage Inventory</a>
+                
+                <div class="card">
+                    <h3>Recent Logsheets</h3>
+                    <div id="recentLogs">
+                        <p>No recent logs</p>
+                    </div>
+                    <button class="btn" onclick="switchTab('logsheets')">View All Logs</button>
+                </div>
+                
+                <div class="card">
+                    <h3>Quick Actions</h3>
+                    <button class="btn" onclick="switchTab('logsheets', 'sprinkler')">New Sprinkler Log</button>
+                    <button class="btn" onclick="switchTab('logsheets', 'temperature')">New Temperature Log</button>
+                    <button class="btn" onclick="switchTab('logsheets', 'inspection')">New Inspection</button>
+                </div>
+                
+                <div class="card">
+                    <h3>Microsoft Integration</h3>
+                    <div id="msStatus">
+                        <p>Status: <span id="msConnected">Not Connected</span></p>
+                    </div>
+                    <button class="btn" id="msConnectBtn">Connect to Microsoft</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Inventory Tab -->
+        <div id="inventory" class="tab-content">
+            <h2>Inventory Management</h2>
+            
+            <div class="toolbar">
+                <button class="btn btn-primary" id="addItemBtn">Add New Item</button>
+                <input type="text" id="searchBox" placeholder="Search inventory..." class="search-input">
+                <select id="filterStatus" class="filter-select">
+                    <option value="">All Status</option>
+                    <option value="In Stock">In Stock</option>
+                    <option value="Out of Stock">Out of Stock</option>
+                    <option value="Ordered">Ordered</option>
+                    <option value="Low Stock">Low Stock</option>
+                </select>
             </div>
             
-            <div class="card">
-                <h3>Recent Logsheets</h3>
-                <div id="recentLogs">
-                    <p>No recent logs</p>
-                </div>
-                <a href="forms.html" class="btn">View All Logs</a>
+            <div id="inventoryTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Part Name</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Supplier</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryBody">
+                        <!-- Inventory items will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Logsheets Tab -->
+        <div id="logsheets" class="tab-content">
+            <h2>Logsheets & Forms</h2>
+            
+            <div class="tabs sub-tabs">
+                <button class="tab-btn active" data-subtab="sprinkler">Sprinkler Logs</button>
+                <button class="tab-btn" data-subtab="temperature">Temperature Logs</button>
+                <button class="tab-btn" data-subtab="inspection">Inspection Records</button>
             </div>
             
-            <div class="card">
-                <h3>Quick Actions</h3>
-                <button class="btn" onclick="location.href='forms.html#sprinkler'">New Sprinkler Log</button>
-                <button class="btn" onclick="location.href='forms.html#temperature'">New Temperature Log</button>
-                <button class="btn" onclick="location.href='forms.html#inspection'">New Inspection</button>
+            <!-- Sprinkler Logsheet Sub-Tab -->
+            <div id="sprinkler" class="tab-content active">
+                <h3>Sprinkler Logsheet</h3>
+                <form id="sprinklerForm" class="logsheet-form">
+                    <div class="form-group">
+                        <label for="sprinklerDate">Date:</label>
+                        <input type="date" id="sprinklerDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sprinklerTime">Time:</label>
+                        <input type="time" id="sprinklerTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sprinklerStatus">Sprinkler Status:</label>
+                        <select id="sprinklerStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="Operational">Operational</option>
+                            <option value="Maintenance Required">Maintenance Required</option>
+                            <option value="Non-Functional">Non-Functional</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sprinklerComments">Comments:</label>
+                        <textarea id="sprinklerComments" rows="4"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Log</button>
+                        <button type="button" class="btn btn-secondary" onclick="exportToPDF('sprinkler')">Export to PDF</button>
+                        <button type="button" class="btn btn-secondary" onclick="exportToExcel('sprinkler')">Export to Excel</button>
+                    </div>
+                </form>
+                
+                <h4>Previous Sprinkler Logs</h4>
+                <div id="sprinklerLogsList" class="logs-list"></div>
             </div>
             
-            <div class="card">
-                <h3>Microsoft Integration</h3>
-                <div id="msStatus">
-                    <p>Status: <span id="msConnected">Not Connected</span></p>
+            <!-- Temperature Logsheet Sub-Tab -->
+            <div id="temperature" class="tab-content">
+                <h3>Temperature Logsheet</h3>
+                <form id="temperatureForm" class="logsheet-form">
+                    <div class="form-group">
+                        <label for="tempDate">Date:</label>
+                        <input type="date" id="tempDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tempTime">Time:</label>
+                        <input type="time" id="tempTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tempLocation">Location:</label>
+                        <input type="text" id="tempLocation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="temperature">Temperature (°F):</label>
+                        <input type="number" id="temperature" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tempInspector">Inspector Name:</label>
+                        <input type="text" id="tempInspector" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tempComments">Comments:</label>
+                        <textarea id="tempComments" rows="4"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Log</button>
+                        <button type="button" class="btn btn-secondary" onclick="exportToPDF('temperature')">Export to PDF</button>
+                        <button type="button" class="btn btn-secondary" onclick="exportToExcel('temperature')">Export to Excel</button>
+                    </div>
+                </form>
+                
+                <h4>Previous Temperature Logs</h4>
+                <div id="temperatureLogsList" class="logs-list"></div>
+            </div>
+            
+            <!-- Inspection Records Sub-Tab -->
+            <div id="inspection" class="tab-content">
+                <h3>Inspection Record</h3>
+                <form id="inspectionForm" class="logsheet-form">
+                    <div class="form-group">
+                        <label for="inspectionDate">Date:</label>
+                        <input type="date" id="inspectionDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectionTime">Time:</label>
+                        <input type="time" id="inspectionTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectionType">Inspection Type:</label>
+                        <select id="inspectionType" required>
+                            <option value="">Select Type</option>
+                            <option value="Safety">Safety</option>
+                            <option value="Structural">Structural</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="Plumbing">Plumbing</option>
+                            <option value="HVAC">HVAC</option>
+                            <option value="General">General</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectionArea">Area/Location:</label>
+                        <input type="text" id="inspectionArea" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectionInspector">Inspector Name:</label>
+                        <input type="text" id="inspectionInspector" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectionDetails">Inspection Details:</label>
+                        <textarea id="inspectionDetails" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectionResult">Result:</label>
+                        <select id="inspectionResult" required>
+                            <option value="">Select Result</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fail">Fail</option>
+                            <option value="Needs Follow-up">Needs Follow-up</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectionNotes">Additional Notes:</label>
+                        <textarea id="inspectionNotes" rows="4"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Record</button>
+                        <button type="button" class="btn btn-secondary" onclick="exportToPDF('inspection')">Export to PDF</button>
+                        <button type="button" class="btn btn-secondary" onclick="exportToExcel('inspection')">Export to Excel</button>
+                    </div>
+                </form>
+                
+                <h4>Previous Inspection Records</h4>
+                <div id="inspectionLogsList" class="logs-list"></div>
+            </div>
+        </div>
+        
+        <!-- Suppliers Tab -->
+        <div id="suppliers" class="tab-content">
+            <h2>Supplier Catalogs</h2>
+            
+            <div class="suppliers-grid">
+                <div class="card supplier-card">
+                    <h3>HD Supply</h3>
+                    <p>Construction and maintenance supplies</p>
+                    <div class="supplier-links">
+                        <a href="https://www.hdsupply.com" target="_blank" class="btn btn-primary">Visit Website</a>
+                        <a href="https://www.hdsupply.com/browse" target="_blank" class="btn btn-secondary">Browse Catalog</a>
+                    </div>
+                    <div class="custom-links">
+                        <h4>Custom Links</h4>
+                        <div id="hdSupplyLinks"></div>
+                        <button class="btn btn-small" onclick="addCustomLink('hd')">Add Custom Link</button>
+                    </div>
                 </div>
-                <button class="btn" id="msConnectBtn">Connect to Microsoft</button>
+                
+                <div class="card supplier-card">
+                    <h3>H&S Supplies</h3>
+                    <p>HVAC and plumbing equipment</p>
+                    <div class="supplier-links">
+                        <a href="https://www.hssupplies.com" target="_blank" class="btn btn-primary">Visit Website</a>
+                        <a href="https://www.hssupplies.com/catalog" target="_blank" class="btn btn-secondary">Browse Catalog</a>
+                    </div>
+                    <div class="custom-links">
+                        <h4>Custom Links</h4>
+                        <div id="hsSupplyLinks"></div>
+                        <button class="btn btn-small" onclick="addCustomLink('hs')">Add Custom Link</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="customSuppliers" class="suppliers-grid"></div>
+            
+            <div class="card">
+                <h3>Add Custom Supplier</h3>
+                <form id="supplierForm">
+                    <div class="form-group">
+                        <label for="supplierName">Supplier Name:</label>
+                        <input type="text" id="supplierName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="supplierDescription">Description:</label>
+                        <input type="text" id="supplierDescription">
+                    </div>
+                    <div class="form-group">
+                        <label for="supplierWebsite">Website URL:</label>
+                        <input type="url" id="supplierWebsite" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="supplierCatalog">Catalog URL (Optional):</label>
+                        <input type="url" id="supplierCatalog">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Supplier</button>
+                </form>
             </div>
         </div>
     </div>
     
-    <script src="assets/js/dashboard.js"></script>
+    <!-- Modal for Add/Edit Inventory Item -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Add New Item</h2>
+            <form id="itemForm">
+                <input type="hidden" id="itemId">
+                <div class="form-group">
+                    <label for="partName">Part Name:</label>
+                    <input type="text" id="partName" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" required>
+                        <option value="In Stock">In Stock</option>
+                        <option value="Out of Stock">Out of Stock</option>
+                        <option value="Ordered">Ordered</option>
+                        <option value="Low Stock">Low Stock</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="supplier">Supplier:</label>
+                    <input type="text" id="supplier">
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes:</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal for Add Custom Link -->
+    <div id="linkModal" class="modal">
+        <div class="modal-content">
+            <span class="close close-link">&times;</span>
+            <h2>Add Custom Link</h2>
+            <form id="linkForm">
+                <input type="hidden" id="linkSupplier">
+                <div class="form-group">
+                    <label for="linkTitle">Link Title:</label>
+                    <input type="text" id="linkTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="linkUrl">URL:</label>
+                    <input type="url" id="linkUrl" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Link</button>
+                    <button type="button" class="btn btn-secondary" id="cancelLinkBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Include libraries for PDF and Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="assets/js/dashboard-integrated.js"></script>
 </body>
 </html>
