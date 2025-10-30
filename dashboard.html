@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildWise Pro - Dashboard</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="nav-brand">BuildWise Pro</div>
+        <ul class="nav-menu">
+            <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            <li><a href="inventory.html">Inventory</a></li>
+            <li><a href="forms.html">Logsheets</a></li>
+            <li><a href="suppliers.html">Suppliers</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>Dashboard</h1>
+        
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Inventory Overview</h3>
+                <div id="inventoryStats">
+                    <p>Total Items: <span id="totalItems">0</span></p>
+                    <p>Out of Stock: <span id="outOfStock">0</span></p>
+                    <p>Low Stock: <span id="lowStock">0</span></p>
+                </div>
+                <a href="inventory.html" class="btn">Manage Inventory</a>
+            </div>
+            
+            <div class="card">
+                <h3>Recent Logsheets</h3>
+                <div id="recentLogs">
+                    <p>No recent logs</p>
+                </div>
+                <a href="forms.html" class="btn">View All Logs</a>
+            </div>
+            
+            <div class="card">
+                <h3>Quick Actions</h3>
+                <button class="btn" onclick="location.href='forms.html#sprinkler'">New Sprinkler Log</button>
+                <button class="btn" onclick="location.href='forms.html#temperature'">New Temperature Log</button>
+                <button class="btn" onclick="location.href='forms.html#inspection'">New Inspection</button>
+            </div>
+            
+            <div class="card">
+                <h3>Microsoft Integration</h3>
+                <div id="msStatus">
+                    <p>Status: <span id="msConnected">Not Connected</span></p>
+                </div>
+                <button class="btn" id="msConnectBtn">Connect to Microsoft</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
