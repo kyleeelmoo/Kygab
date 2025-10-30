@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildWise Pro - Logsheets</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="nav-brand">BuildWise Pro</div>
+        <ul class="nav-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="inventory.html">Inventory</a></li>
+            <li><a href="forms.html" class="active">Logsheets</a></li>
+            <li><a href="suppliers.html">Suppliers</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>Logsheets & Forms</h1>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="sprinkler">Sprinkler Logs</button>
+            <button class="tab-btn" data-tab="temperature">Temperature Logs</button>
+            <button class="tab-btn" data-tab="inspection">Inspection Records</button>
+        </div>
+        
+        <!-- Sprinkler Logsheet Tab -->
+        <div id="sprinkler" class="tab-content active">
+            <h2>Sprinkler Logsheet</h2>
+            <form id="sprinklerForm" class="logsheet-form">
+                <div class="form-group">
+                    <label for="sprinklerDate">Date:</label>
+                    <input type="date" id="sprinklerDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="sprinklerTime">Time:</label>
+                    <input type="time" id="sprinklerTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="sprinklerStatus">Sprinkler Status:</label>
+                    <select id="sprinklerStatus" required>
+                        <option value="">Select Status</option>
+                        <option value="Operational">Operational</option>
+                        <option value="Maintenance Required">Maintenance Required</option>
+                        <option value="Non-Functional">Non-Functional</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sprinklerComments">Comments:</label>
+                    <textarea id="sprinklerComments" rows="4"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Log</button>
+                    <button type="button" class="btn btn-secondary" onclick="exportToPDF('sprinkler')">Export to PDF</button>
+                    <button type="button" class="btn btn-secondary" onclick="exportToExcel('sprinkler')">Export to Excel</button>
+                </div>
+            </form>
+            
+            <h3>Previous Sprinkler Logs</h3>
+            <div id="sprinklerLogsList" class="logs-list"></div>
+        </div>
+        
+        <!-- Temperature Logsheet Tab -->
+        <div id="temperature" class="tab-content">
+            <h2>Temperature Logsheet</h2>
+            <form id="temperatureForm" class="logsheet-form">
+                <div class="form-group">
+                    <label for="tempDate">Date:</label>
+                    <input type="date" id="tempDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="tempTime">Time:</label>
+                    <input type="time" id="tempTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="tempLocation">Location:</label>
+                    <input type="text" id="tempLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="temperature">Temperature (°F):</label>
+                    <input type="number" id="temperature" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="tempInspector">Inspector Name:</label>
+                    <input type="text" id="tempInspector" required>
+                </div>
+                <div class="form-group">
+                    <label for="tempComments">Comments:</label>
+                    <textarea id="tempComments" rows="4"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Log</button>
+                    <button type="button" class="btn btn-secondary" onclick="exportToPDF('temperature')">Export to PDF</button>
+                    <button type="button" class="btn btn-secondary" onclick="exportToExcel('temperature')">Export to Excel</button>
+                </div>
+            </form>
+            
+            <h3>Previous Temperature Logs</h3>
+            <div id="temperatureLogsList" class="logs-list"></div>
+        </div>
+        
+        <!-- Inspection Records Tab -->
+        <div id="inspection" class="tab-content">
+            <h2>Inspection Record</h2>
+            <form id="inspectionForm" class="logsheet-form">
+                <div class="form-group">
+                    <label for="inspectionDate">Date:</label>
+                    <input type="date" id="inspectionDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="inspectionTime">Time:</label>
+                    <input type="time" id="inspectionTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="inspectionType">Inspection Type:</label>
+                    <select id="inspectionType" required>
+                        <option value="">Select Type</option>
+                        <option value="Safety">Safety</option>
+                        <option value="Structural">Structural</option>
+                        <option value="Electrical">Electrical</option>
+                        <option value="Plumbing">Plumbing</option>
+                        <option value="HVAC">HVAC</option>
+                        <option value="General">General</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inspectionArea">Area/Location:</label>
+                    <input type="text" id="inspectionArea" required>
+                </div>
+                <div class="form-group">
+                    <label for="inspectionInspector">Inspector Name:</label>
+                    <input type="text" id="inspectionInspector" required>
+                </div>
+                <div class="form-group">
+                    <label for="inspectionDetails">Inspection Details:</label>
+                    <textarea id="inspectionDetails" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inspectionResult">Result:</label>
+                    <select id="inspectionResult" required>
+                        <option value="">Select Result</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="Needs Follow-up">Needs Follow-up</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inspectionNotes">Additional Notes:</label>
+                    <textarea id="inspectionNotes" rows="4"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Record</button>
+                    <button type="button" class="btn btn-secondary" onclick="exportToPDF('inspection')">Export to PDF</button>
+                    <button type="button" class="btn btn-secondary" onclick="exportToExcel('inspection')">Export to Excel</button>
+                </div>
+            </form>
+            
+            <h3>Previous Inspection Records</h3>
+            <div id="inspectionLogsList" class="logs-list"></div>
+        </div>
+    </div>
+    
+    <!-- Include libraries for PDF and Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="assets/js/forms.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "kygab",
+  "version": "1.0.0",
+  "description": "BuildWise Pro - A comprehensive tracking application for superintendents",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8080",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "inventory",
+    "logsheets",
+    "management",
+    "tracking"
+  ],
+  "author": "Kyle",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
