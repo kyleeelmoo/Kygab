@@ -9,54 +9,126 @@
 <body class="dark-theme">
     <nav class="navbar">
         <div class="nav-brand">Morata-Dominguez</div>
-        <ul class="nav-menu">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        <ul class="nav-menu" id="navMenu">
             <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            <li><a href="tenants.html">Tenants</a></li>
+            <li><a href="maintenance.html">Maintenance</a></li>
+            <li><a href="leases.html">Leases</a></li>
+            <li><a href="financials.html">Financials</a></li>
             <li><a href="inventory.html">Inventory</a></li>
-            <li><a href="forms.html">Logsheets</a></li>
-            <li><a href="suppliers.html">Suppliers</a></li>
+            <li><span id="userInfo" style="color: #D4AF37;"></span></li>
             <li><a href="#" id="logoutBtn">Logout</a></li>
         </ul>
     </nav>
     
+    <!-- Notifications Panel -->
+    <div class="notification-panel" id="notificationPanel">
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <button class="close-btn" id="closeNotifications">×</button>
+        </div>
+        <div class="notification-list" id="notificationList">
+            <!-- Notifications will be inserted here -->
+        </div>
+    </div>
+    
+    <button class="notification-toggle" id="notificationToggle">
+        🔔 <span class="notification-badge" id="notificationBadge">0</span>
+    </button>
+    
     <div class="container">
-        <h1>Dashboard</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1>Property Management Dashboard</h1>
+        </div>
+        
+        <!-- Analytics Cards -->
+        <div class="analytics-grid">
+            <div class="analytics-card">
+                <div class="analytics-icon">🏠</div>
+                <div class="analytics-content">
+                    <h4>Total Properties</h4>
+                    <p class="analytics-value" id="totalProperties">0</p>
+                </div>
+            </div>
+            <div class="analytics-card">
+                <div class="analytics-icon">👥</div>
+                <div class="analytics-content">
+                    <h4>Active Tenants</h4>
+                    <p class="analytics-value" id="activeTenants">0</p>
+                </div>
+            </div>
+            <div class="analytics-card">
+                <div class="analytics-icon">💰</div>
+                <div class="analytics-content">
+                    <h4>Rent Collected (This Month)</h4>
+                    <p class="analytics-value" id="rentCollected">$0</p>
+                </div>
+            </div>
+            <div class="analytics-card">
+                <div class="analytics-icon">🔧</div>
+                <div class="analytics-content">
+                    <h4>Pending Requests</h4>
+                    <p class="analytics-value" id="pendingRequests">0</p>
+                </div>
+            </div>
+        </div>
         
         <div class="dashboard-grid">
-            <div class="card">
-                <h3>Inventory Overview</h3>
-                <p style="margin-bottom: 1rem; color: #b794f6;">Track and manage your inventory items in real-time. Monitor stock levels and receive alerts for low stock items.</p>
-                <div id="inventoryStats">
-                    <p>Total Items: <span id="totalItems">0</span></p>
-                    <p>Out of Stock: <span id="outOfStock">0</span></p>
-                    <p>Low Stock: <span id="lowStock">0</span></p>
+            <!-- Tenant Management Section -->
+            <div class="card clickable-card" onclick="location.href='tenants.html'">
+                <h3>👥 Tenant Management</h3>
+                <p style="margin-bottom: 1rem; color: #b794f6;">Manage tenant information, contact details, and lease assignments. Track tenant history and communications.</p>
+                <div id="tenantStats">
+                    <p>Active Tenants: <span id="activeTenantsCount">0</span></p>
+                    <p>Move-ins This Month: <span id="moveInsCount">0</span></p>
+                    <p>Expiring Leases (30 days): <span id="expiringLeasesCount">0</span></p>
                 </div>
-                <a href="inventory.html" class="btn">Manage Inventory</a>
+                <a href="tenants.html" class="btn">Manage Tenants</a>
             </div>
             
-            <div class="card">
-                <h3>Recent Logsheets</h3>
-                <p style="margin-bottom: 1rem; color: #b794f6;">View your most recent activity logs including sprinkler checks, temperature readings, and inspections.</p>
-                <div id="recentLogs">
-                    <p>No recent logs</p>
+            <!-- Maintenance Requests Section -->
+            <div class="card clickable-card" onclick="location.href='maintenance.html'">
+                <h3>🔧 Maintenance Requests</h3>
+                <p style="margin-bottom: 1rem; color: #b794f6;">Track and manage property maintenance requests. Monitor status from submission to completion.</p>
+                <div id="maintenanceStats">
+                    <p>Active Requests: <span id="activeRequests">0</span></p>
+                    <p>Completed This Week: <span id="completedRequests">0</span></p>
+                    <p>Urgent: <span id="urgentRequests" style="color: #ff4444;">0</span></p>
                 </div>
-                <a href="forms.html" class="btn">View All Logs</a>
+                <a href="maintenance.html" class="btn">View Requests</a>
             </div>
             
-            <div class="card">
-                <h3>Quick Actions</h3>
-                <p style="margin-bottom: 1rem; color: #b794f6;">Quickly create new log entries for common inspection types and maintenance activities.</p>
-                <button class="btn" onclick="location.href='forms.html#sprinkler'">New Sprinkler Log</button>
-                <button class="btn" onclick="location.href='forms.html#temperature'">New Temperature Log</button>
-                <button class="btn" onclick="location.href='forms.html#inspection'">New Inspection</button>
+            <!-- Lease Information Section -->
+            <div class="card clickable-card" onclick="location.href='leases.html'">
+                <h3>📄 Lease Information</h3>
+                <p style="margin-bottom: 1rem; color: #b794f6;">View and manage lease agreements, terms, and renewals. Track lease status and important dates.</p>
+                <div id="leaseStats">
+                    <p>Active Leases: <span id="activeLeases">0</span></p>
+                    <p>Expiring Soon: <span id="expiringSoon">0</span></p>
+                    <p>Renewals Required: <span id="renewalsRequired">0</span></p>
+                </div>
+                <a href="leases.html" class="btn">Manage Leases</a>
             </div>
             
-            <div class="card">
-                <h3>Microsoft Integration</h3>
-                <p style="margin-bottom: 1rem; color: #b794f6;">Connect to Microsoft services for enhanced productivity, cloud storage, and task synchronization.</p>
-                <div id="msStatus">
-                    <p>Status: <span id="msConnected">Not Connected</span></p>
+            <!-- Financials Section -->
+            <div class="card clickable-card" onclick="location.href='financials.html'">
+                <h3>💰 Financials</h3>
+                <p style="margin-bottom: 1rem; color: #b794f6;">Track rent payments, generate invoices, and view financial reports. Monitor payment status and overdue accounts.</p>
+                <div id="financialStats">
+                    <p>Total Revenue (Month): <span id="monthRevenue">$0</span></p>
+                    <p>Outstanding Payments: <span id="outstandingPayments">$0</span></p>
+                    <p>Paid On Time: <span id="paidOnTime">0%</span></p>
                 </div>
-                <button class="btn" id="msConnectBtn">Connect to Microsoft</button>
+                <a href="financials.html" class="btn">View Financials</a>
+            </div>
+        </div>
+        
+        <!-- Recent Activity Section -->
+        <div class="card" style="margin-top: 2rem;">
+            <h3>📊 Recent Activity</h3>
+            <div id="recentActivity">
+                <p style="color: #888;">No recent activity</p>
             </div>
         </div>
     </div>
