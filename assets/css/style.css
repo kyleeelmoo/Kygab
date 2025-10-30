@@ -20,17 +20,30 @@ body.dark-theme {
     background-color: #1a1a2e;
     padding: 1rem 2rem;
     box-shadow: 0 2px 5px rgba(212, 175, 55, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
 }
 
 .nav-brand {
     font-size: 1.5rem;
     font-weight: 900;
     color: #D4AF37;
-    display: inline-block;
-    margin-right: 2rem;
     font-family: 'Cinzel', serif;
     text-transform: uppercase;
     letter-spacing: 3px;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background-color: #D4AF37;
+    color: #0a0a0f;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 .nav-menu {
@@ -407,20 +420,35 @@ tr:hover {
 @media (max-width: 768px) {
     .navbar {
         padding: 1rem;
+        flex-wrap: wrap;
     }
     
     .nav-brand {
+        font-size: 1.2rem;
+    }
+    
+    .mobile-menu-toggle {
         display: block;
-        margin-bottom: 0.5rem;
     }
     
     .nav-menu {
+        display: none;
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    .nav-menu.active {
         display: block;
     }
     
     .nav-menu li {
         display: block;
         margin: 0.5rem 0;
+    }
+    
+    .nav-menu a {
+        display: block;
+        width: 100%;
     }
     
     .toolbar {
@@ -445,6 +473,7 @@ tr:hover {
     .tab-btn {
         border-bottom: none;
         border-left: 3px solid transparent;
+        padding: 0.75rem 1rem;
     }
     
     .tab-btn.active {
@@ -452,7 +481,9 @@ tr:hover {
     }
     
     table {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        display: block;
+        overflow-x: auto;
     }
     
     th, td {
@@ -462,6 +493,7 @@ tr:hover {
     .modal-content {
         width: 95%;
         margin: 10% auto;
+        padding: 1rem;
     }
     
     .form-actions {
@@ -471,6 +503,10 @@ tr:hover {
     .supplier-links {
         flex-direction: column;
     }
+    
+    .clickable-card {
+        cursor: pointer;
+    }
 }
 
 @media (max-width: 480px) {
@@ -478,12 +514,26 @@ tr:hover {
         padding: 0 0.5rem;
     }
     
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .nav-brand {
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+    
     table {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
     
     th, td {
-        padding: 0.25rem;
+        padding: 0.3rem;
+    }
+    
+    .btn-small {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.75rem;
     }
 }
 
@@ -514,6 +564,70 @@ tr:hover {
 .status-low-stock {
     background-color: #ff8800;
     color: #000;
+}
+
+.status-active {
+    background-color: #4ade80;
+    color: #000;
+}
+
+.status-inactive {
+    background-color: #888;
+    color: #fff;
+}
+
+.status-pending {
+    background-color: #ffaa00;
+    color: #000;
+}
+
+.status-expired {
+    background-color: #ff4444;
+    color: #fff;
+}
+
+.status-paid {
+    background-color: #4ade80;
+    color: #000;
+}
+
+.status-overdue {
+    background-color: #ff4444;
+    color: #fff;
+}
+
+.status-in-progress {
+    background-color: #4a9eff;
+    color: #fff;
+}
+
+.status-completed {
+    background-color: #4ade80;
+    color: #000;
+}
+
+/* Priority Badges */
+.priority-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.priority-low {
+    background-color: #4a9eff;
+    color: #fff;
+}
+
+.priority-medium {
+    background-color: #ffaa00;
+    color: #000;
+}
+
+.priority-high {
+    background-color: #ff4444;
+    color: #fff;
 }
 
 /* Action buttons in tables */

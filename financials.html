@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morata-Dominguez Portal - Financial Management</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="nav-brand">Morata-Dominguez</div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="tenants.html">Tenants</a></li>
+            <li><a href="maintenance.html">Maintenance</a></li>
+            <li><a href="leases.html">Leases</a></li>
+            <li><a href="financials.html" class="active">Financials</a></li>
+            <li><a href="inventory.html">Inventory</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>💰 Financial Management</h1>
+        <p style="margin-bottom: 1.5rem; color: #b794f6;">Track rent payments, generate invoices, and view financial reports. Monitor payment status and overdue accounts.</p>
+        
+        <!-- Financial Analytics -->
+        <div class="analytics-grid">
+            <div class="analytics-card">
+                <div class="analytics-icon">💵</div>
+                <div class="analytics-content">
+                    <h4>Total Revenue (Month)</h4>
+                    <p class="analytics-value" id="totalRevenue">$0</p>
+                </div>
+            </div>
+            <div class="analytics-card">
+                <div class="analytics-icon">📊</div>
+                <div class="analytics-content">
+                    <h4>Outstanding Payments</h4>
+                    <p class="analytics-value" id="outstandingAmount">$0</p>
+                </div>
+            </div>
+            <div class="analytics-card">
+                <div class="analytics-icon">✅</div>
+                <div class="analytics-content">
+                    <h4>Paid This Month</h4>
+                    <p class="analytics-value" id="paidCount">0</p>
+                </div>
+            </div>
+            <div class="analytics-card">
+                <div class="analytics-icon">⏰</div>
+                <div class="analytics-content">
+                    <h4>Overdue Payments</h4>
+                    <p class="analytics-value" id="overdueCount">0</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="payments">Payment History</button>
+            <button class="tab-btn" data-tab="invoices">Invoices</button>
+            <button class="tab-btn" data-tab="record">Record Payment</button>
+        </div>
+        
+        <!-- Payment History Tab -->
+        <div id="payments" class="tab-content active">
+            <div class="toolbar">
+                <input type="text" id="searchPaymentsBox" placeholder="Search payments..." class="search-input">
+                <select id="filterPaymentStatus" class="filter-select">
+                    <option value="">All Status</option>
+                    <option value="paid">Paid</option>
+                    <option value="pending">Pending</option>
+                    <option value="overdue">Overdue</option>
+                </select>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tenant</th>
+                        <th>Unit</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Method</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="paymentsBody">
+                    <!-- Payment rows will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Invoices Tab -->
+        <div id="invoices" class="tab-content">
+            <div class="toolbar">
+                <button class="btn btn-primary" id="generateInvoiceBtn">Generate Invoice</button>
+                <input type="text" id="searchInvoicesBox" placeholder="Search invoices..." class="search-input">
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Invoice #</th>
+                        <th>Tenant</th>
+                        <th>Unit</th>
+                        <th>Amount</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="invoicesBody">
+                    <!-- Invoice rows will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Record Payment Tab -->
+        <div id="record" class="tab-content">
+            <div class="card">
+                <h3>Record New Payment</h3>
+                <form id="paymentForm" class="logsheet-form">
+                    <div class="form-group">
+                        <label for="paymentTenant">Tenant Name:</label>
+                        <input type="text" id="paymentTenant" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentUnit">Unit:</label>
+                        <input type="text" id="paymentUnit" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentAmount">Amount ($):</label>
+                        <input type="number" id="paymentAmount" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentDate">Payment Date:</label>
+                        <input type="date" id="paymentDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentMethod">Payment Method:</label>
+                        <select id="paymentMethod" required>
+                            <option value="">Select Method</option>
+                            <option value="bank transfer">Bank Transfer</option>
+                            <option value="check">Check</option>
+                            <option value="cash">Cash</option>
+                            <option value="credit card">Credit Card</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentNotes">Notes:</label>
+                        <textarea id="paymentNotes" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Record Payment</button>
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('paymentForm').reset()">Clear Form</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Generate Invoice Modal -->
+    <div id="invoiceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeInvoiceModal">&times;</span>
+            <h2>Generate Invoice</h2>
+            <form id="invoiceForm">
+                <div class="form-group">
+                    <label for="invoiceTenant">Tenant Name:</label>
+                    <input type="text" id="invoiceTenant" required>
+                </div>
+                <div class="form-group">
+                    <label for="invoiceUnit">Unit:</label>
+                    <input type="text" id="invoiceUnit" required>
+                </div>
+                <div class="form-group">
+                    <label for="invoiceAmount">Amount ($):</label>
+                    <input type="number" id="invoiceAmount" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="invoiceDueDate">Due Date:</label>
+                    <input type="date" id="invoiceDueDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="invoiceDescription">Description:</label>
+                    <textarea id="invoiceDescription" rows="3" placeholder="Rent for Month of..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Generate Invoice</button>
+                    <button type="button" class="btn btn-secondary" id="cancelInvoiceBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Made by: Kyle &amp; Mashe Morata</p>
+    </footer>
+    
+    <script src="assets/js/financials.js"></script>
+</body>
+</html>
