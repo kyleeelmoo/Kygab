@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morata-Dominguez Portal - Maintenance Requests</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="nav-brand">Morata-Dominguez</div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="tenants.html">Tenants</a></li>
+            <li><a href="maintenance.html" class="active">Maintenance</a></li>
+            <li><a href="leases.html">Leases</a></li>
+            <li><a href="financials.html">Financials</a></li>
+            <li><a href="inventory.html">Inventory</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>🔧 Maintenance Requests</h1>
+        <p style="margin-bottom: 1.5rem; color: #b794f6;">Track and manage property maintenance requests from submission to completion.</p>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="active">Active Requests</button>
+            <button class="tab-btn" data-tab="completed">Completed Requests</button>
+            <button class="tab-btn" data-tab="submit">Submit New Request</button>
+        </div>
+        
+        <!-- Active Requests Tab -->
+        <div id="active" class="tab-content active">
+            <div class="toolbar">
+                <input type="text" id="searchActiveBox" placeholder="Search requests..." class="search-input">
+                <select id="filterPriority" class="filter-select">
+                    <option value="">All Priorities</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <select id="filterCategory" class="filter-select">
+                    <option value="">All Categories</option>
+                    <option value="Plumbing">Plumbing</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="HVAC">HVAC</option>
+                    <option value="Appliance">Appliance</option>
+                    <option value="General">General</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tenant</th>
+                        <th>Unit</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="activeRequestsBody">
+                    <!-- Active requests will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Completed Requests Tab -->
+        <div id="completed" class="tab-content">
+            <div class="toolbar">
+                <input type="text" id="searchCompletedBox" placeholder="Search completed requests..." class="search-input">
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tenant</th>
+                        <th>Unit</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Submitted</th>
+                        <th>Completed</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="completedRequestsBody">
+                    <!-- Completed requests will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Submit New Request Tab -->
+        <div id="submit" class="tab-content">
+            <div class="card">
+                <h3>Submit New Maintenance Request</h3>
+                <form id="maintenanceForm" class="logsheet-form">
+                    <div class="form-group">
+                        <label for="requestTenant">Tenant Name:</label>
+                        <input type="text" id="requestTenant" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="requestUnit">Unit:</label>
+                        <input type="text" id="requestUnit" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="requestCategory">Category:</label>
+                        <select id="requestCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="Plumbing">Plumbing</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="HVAC">HVAC</option>
+                            <option value="Appliance">Appliance</option>
+                            <option value="General">General</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="requestDescription">Description:</label>
+                        <textarea id="requestDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="requestPriority">Priority:</label>
+                        <select id="requestPriority" required>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('maintenanceForm').reset()">Clear Form</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- View Request Details Modal -->
+    <div id="viewRequestModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeViewModal">&times;</span>
+            <h2>Request Details</h2>
+            <div id="requestDetails">
+                <!-- Request details will be inserted here -->
+            </div>
+            <div class="form-actions" style="margin-top: 1.5rem;">
+                <button class="btn btn-primary" id="markCompletedBtn">Mark as Completed</button>
+                <button class="btn btn-secondary" id="closeDetailsBtn">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Made by: Kyle &amp; Mashe Morata</p>
+    </footer>
+    
+    <script src="assets/js/maintenance.js"></script>
+</body>
+</html>
