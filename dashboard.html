@@ -3,56 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuildWise Pro - Dashboard</title>
+    <title>Morata-Dominguez - Dashboard</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="dark-theme">
     <nav class="navbar">
-        <div class="nav-brand">BuildWise Pro</div>
+        <div class="nav-brand">Morata-Dominguez</div>
         <ul class="nav-menu">
             <li><a href="dashboard.html" class="active">Dashboard</a></li>
-            <li><a href="inventory.html">Inventory</a></li>
-            <li><a href="forms.html">Logsheets</a></li>
-            <li><a href="suppliers.html">Suppliers</a></li>
+            <li><a href="tenants.html">Tenant Management</a></li>
+            <li><a href="maintenance.html">Maintenance Requests</a></li>
+            <li><a href="leases.html">Lease Information</a></li>
+            <li><a href="financials.html">Financials</a></li>
             <li><a href="#" id="logoutBtn">Logout</a></li>
         </ul>
     </nav>
     
     <div class="container">
-        <h1>Dashboard</h1>
+        <h1>Property Management Dashboard</h1>
+        
+        <!-- Analytics Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3 id="totalTenants">12</h3>
+                <p>Active Tenants</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalRentCollected">$24,500</h3>
+                <p>Rent Collected (This Month)</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="pendingRequests">5</h3>
+                <p>Pending Maintenance Requests</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="occupancyRate">95%</h3>
+                <p>Occupancy Rate</p>
+            </div>
+        </div>
         
         <div class="dashboard-grid">
             <div class="card">
-                <h3>Inventory Overview</h3>
-                <div id="inventoryStats">
-                    <p>Total Items: <span id="totalItems">0</span></p>
-                    <p>Out of Stock: <span id="outOfStock">0</span></p>
-                    <p>Low Stock: <span id="lowStock">0</span></p>
+                <h3>Tenant Management</h3>
+                <div id="tenantStats">
+                    <p>Total Properties: <span id="totalProperties">15</span></p>
+                    <p>Occupied: <span id="occupiedProperties">14</span></p>
+                    <p>Vacant: <span id="vacantProperties">1</span></p>
+                    <p>Lease Renewals Due: <span id="renewalsDue">3</span></p>
                 </div>
-                <a href="inventory.html" class="btn">Manage Inventory</a>
+                <a href="tenants.html" class="btn">Manage Tenants</a>
             </div>
             
             <div class="card">
-                <h3>Recent Logsheets</h3>
-                <div id="recentLogs">
-                    <p>No recent logs</p>
+                <h3>Maintenance Requests</h3>
+                <div id="maintenanceOverview">
+                    <p>Active Requests: <span id="activeRequests">5</span></p>
+                    <p>In Progress: <span id="inProgressRequests">2</span></p>
+                    <p>Completed This Week: <span id="completedRequests">8</span></p>
                 </div>
-                <a href="forms.html" class="btn">View All Logs</a>
+                <a href="maintenance.html" class="btn">View All Requests</a>
+                <button class="btn btn-secondary" onclick="location.href='maintenance.html#new'">Submit New Request</button>
+            </div>
+            
+            <div class="card">
+                <h3>Lease Information</h3>
+                <div id="leaseOverview">
+                    <p>Active Leases: <span id="activeLeases">14</span></p>
+                    <p>Expiring This Month: <span id="expiringLeases">2</span></p>
+                    <p>Month-to-Month: <span id="monthToMonth">1</span></p>
+                </div>
+                <a href="leases.html" class="btn">View Leases</a>
+            </div>
+            
+            <div class="card">
+                <h3>Financial Overview</h3>
+                <div id="financialStats">
+                    <p>Total Monthly Rent: <span id="monthlyRent">$25,800</span></p>
+                    <p>Collected: <span id="rentCollected">$24,500</span></p>
+                    <p>Outstanding: <span id="rentOutstanding">$1,300</span></p>
+                    <p>Expenses This Month: <span id="expenses">$3,200</span></p>
+                </div>
+                <a href="financials.html" class="btn">View Financials</a>
+            </div>
+            
+            <div class="card">
+                <h3>Recent Notifications</h3>
+                <div id="notifications">
+                    <div class="notification-item">
+                        <p><strong>Rent Payment Received</strong></p>
+                        <p>Unit 204 - $1,800 - 2 hours ago</p>
+                    </div>
+                    <div class="notification-item">
+                        <p><strong>Maintenance Completed</strong></p>
+                        <p>Unit 105 - HVAC Repair - 5 hours ago</p>
+                    </div>
+                    <div class="notification-item">
+                        <p><strong>Lease Expiring Soon</strong></p>
+                        <p>Unit 301 - Expires in 30 days</p>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" id="viewAllNotifications">View All Notifications</button>
             </div>
             
             <div class="card">
                 <h3>Quick Actions</h3>
-                <button class="btn" onclick="location.href='forms.html#sprinkler'">New Sprinkler Log</button>
-                <button class="btn" onclick="location.href='forms.html#temperature'">New Temperature Log</button>
-                <button class="btn" onclick="location.href='forms.html#inspection'">New Inspection</button>
-            </div>
-            
-            <div class="card">
-                <h3>Microsoft Integration</h3>
-                <div id="msStatus">
-                    <p>Status: <span id="msConnected">Not Connected</span></p>
-                </div>
-                <button class="btn" id="msConnectBtn">Connect to Microsoft</button>
+                <button class="btn" onclick="location.href='tenants.html#new'">Add New Tenant</button>
+                <button class="btn" onclick="location.href='maintenance.html#new'">New Maintenance Request</button>
+                <button class="btn" onclick="location.href='financials.html#payment'">Record Payment</button>
+                <button class="btn" onclick="location.href='leases.html#new'">Create New Lease</button>
             </div>
         </div>
     </div>
