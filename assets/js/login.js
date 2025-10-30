@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loginBtn.disabled = true;
         loginBtn.innerHTML = 'Logging in... <span class="loading"></span>';
         
-        // Simulate network delay for better UX
+        // Artificial delay for visual feedback (shows loading spinner briefly)
         setTimeout(() => {
             // Simple authentication (in production, use proper backend authentication)
             if (username && password) {
