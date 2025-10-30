@@ -1,0 +1,24 @@
+<svg width="200" height="120" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern Tech Company Logo with Blue/Teal Theme -->
+  <defs>
+    <linearGradient id="eimeeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0099CC;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Hexagonal Shape -->
+  <polygon points="100,20 140,40 140,80 100,100 60,80 60,40" 
+           fill="url(#eimeeGradient)" opacity="0.8"/>
+  
+  <!-- Inner Circle -->
+  <circle cx="100" cy="60" r="25" fill="#FFFFFF" opacity="0.3"/>
+  
+  <!-- Letter E stylized -->
+  <path d="M 90 45 L 110 45 L 110 50 L 95 50 L 95 57.5 L 108 57.5 L 108 62.5 L 95 62.5 L 95 70 L 110 70 L 110 75 L 90 75 Z" 
+        fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1"/>
+  
+  <!-- Company Name -->
+  <text x="100" y="108" font-family="Arial, sans-serif" font-size="16" font-weight="bold" 
+        fill="#00D4FF" text-anchor="middle" letter-spacing="2">EIMEE INC.</text>
+</svg>
