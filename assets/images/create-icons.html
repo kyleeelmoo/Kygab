@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head><title>Generate Icons</title></head>
+<body>
+<canvas id="canvas192" width="192" height="192"></canvas>
+<canvas id="canvas512" width="512" height="512"></canvas>
+<script>
+// Create 192x192 icon
+const canvas192 = document.getElementById('canvas192');
+const ctx192 = canvas192.getContext('2d');
+const gradient192 = ctx192.createLinearGradient(0, 0, 192, 192);
+gradient192.addColorStop(0, '#6C5CE7');
+gradient192.addColorStop(1, '#5F3DC4');
+ctx192.fillStyle = gradient192;
+ctx192.beginPath();
+ctx192.arc(96, 96, 90, 0, Math.PI * 2);
+ctx192.fill();
+ctx192.strokeStyle = '#FFD700';
+ctx192.lineWidth = 6;
+ctx192.stroke();
+ctx192.font = 'bold 80px Arial';
+ctx192.textAlign = 'center';
+ctx192.textBaseline = 'middle';
+ctx192.fillStyle = '#FFD700';
+ctx192.fillText('⚔️', 96, 96);
+
+// Create 512x512 icon
+const canvas512 = document.getElementById('canvas512');
+const ctx512 = canvas512.getContext('2d');
+const gradient512 = ctx512.createLinearGradient(0, 0, 512, 512);
+gradient512.addColorStop(0, '#6C5CE7');
+gradient512.addColorStop(1, '#5F3DC4');
+ctx512.fillStyle = gradient512;
+ctx512.beginPath();
+ctx512.arc(256, 256, 240, 0, Math.PI * 2);
+ctx512.fill();
+ctx512.strokeStyle = '#FFD700';
+ctx512.lineWidth = 16;
+ctx512.stroke();
+ctx512.font = 'bold 200px Arial';
+ctx512.textAlign = 'center';
+ctx512.textBaseline = 'middle';
+ctx512.fillStyle = '#FFD700';
+ctx512.fillText('⚔️', 256, 256);
+
+console.log('Icons created in canvas elements');
+console.log('192x192:', canvas192.toDataURL());
+console.log('512x512:', canvas512.toDataURL());
+</script>
+</body>
+</html>

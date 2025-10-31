@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Battle Arena - Online PvP Mobile Game">
+    <title>Battle Arena - Online PvP Game</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="assets/css/game.css">
+    <link rel="icon" type="image/png" href="assets/images/game-icon.png">
+    <link rel="apple-touch-icon" href="assets/images/game-icon-192.png">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="screen active">
+        <div class="loading-content">
+            <h1 class="game-title">⚔️ Battle Arena ⚔️</h1>
+            <div class="loading-spinner"></div>
+            <p>Loading game...</p>
+        </div>
+    </div>
+
+    <!-- Main Menu Screen -->
+    <div id="mainMenu" class="screen">
+        <div class="menu-content">
+            <h1 class="game-title">⚔️ Battle Arena ⚔️</h1>
+            <div class="player-info">
+                <div class="player-name">
+                    <input type="text" id="playerName" placeholder="Enter your name" maxlength="15">
+                </div>
+                <div class="player-stats">
+                    <div class="stat">
+                        <span class="stat-label">Wins:</span>
+                        <span id="playerWins" class="stat-value">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Score:</span>
+                        <span id="playerScore" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-buttons">
+                <button id="quickPlayBtn" class="btn btn-primary">🎮 Quick Play</button>
+                <button id="createRoomBtn" class="btn btn-secondary">🏠 Create Room</button>
+                <button id="joinRoomBtn" class="btn btn-secondary">🔗 Join Room</button>
+                <button id="leaderboardBtn" class="btn btn-secondary">🏆 Leaderboard</button>
+                <button id="howToPlayBtn" class="btn btn-info">❓ How to Play</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Matchmaking Screen -->
+    <div id="matchmakingScreen" class="screen">
+        <div class="matchmaking-content">
+            <h2>Finding Opponent...</h2>
+            <div class="matchmaking-spinner"></div>
+            <p id="matchmakingStatus">Searching for players...</p>
+            <button id="cancelMatchmakingBtn" class="btn btn-danger">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Room Screen -->
+    <div id="roomScreen" class="screen">
+        <div class="room-content">
+            <h2>Game Room</h2>
+            <div class="room-code">
+                <label>Room Code:</label>
+                <span id="roomCodeDisplay">----</span>
+                <button id="copyRoomCodeBtn" class="btn-small">📋 Copy</button>
+            </div>
+            <div class="room-players">
+                <h3>Players</h3>
+                <div id="roomPlayersList" class="players-list"></div>
+            </div>
+            <div class="room-buttons">
+                <button id="startGameBtn" class="btn btn-primary">Start Game</button>
+                <button id="leaveRoomBtn" class="btn btn-danger">Leave Room</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Join Room Modal -->
+    <div id="joinRoomModal" class="modal">
+        <div class="modal-content">
+            <h2>Join Room</h2>
+            <input type="text" id="roomCodeInput" placeholder="Enter room code" maxlength="6">
+            <div class="modal-buttons">
+                <button id="confirmJoinBtn" class="btn btn-primary">Join</button>
+                <button id="cancelJoinBtn" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen">
+        <div class="game-hud">
+            <div class="hud-left">
+                <div class="player-health-bar">
+                    <div class="health-label">You</div>
+                    <div class="health-bar">
+                        <div id="playerHealthBar" class="health-fill"></div>
+                    </div>
+                    <div class="health-value"><span id="playerHealth">100</span>/100</div>
+                </div>
+            </div>
+            <div class="hud-center">
+                <div class="game-timer" id="gameTimer">3:00</div>
+                <div class="game-score">
+                    <span id="gameScoreDisplay">0 - 0</span>
+                </div>
+            </div>
+            <div class="hud-right">
+                <div class="opponent-health-bar">
+                    <div class="health-label">Opponent</div>
+                    <div class="health-bar">
+                        <div id="opponentHealthBar" class="health-fill opponent"></div>
+                    </div>
+                    <div class="health-value"><span id="opponentHealth">100</span>/100</div>
+                </div>
+            </div>
+        </div>
+        
+        <canvas id="gameCanvas"></canvas>
+        
+        <div class="game-controls">
+            <div class="controls-left">
+                <div class="joystick-container">
+                    <div id="joystick" class="joystick">
+                        <div class="joystick-knob"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="controls-right">
+                <button id="attackBtn" class="action-btn attack-btn">⚔️<br>Attack</button>
+                <button id="defendBtn" class="action-btn defend-btn">🛡️<br>Defend</button>
+                <button id="specialBtn" class="action-btn special-btn">✨<br>Special</button>
+            </div>
+        </div>
+        
+        <button id="pauseBtn" class="pause-btn">⏸️</button>
+    </div>
+
+    <!-- Pause Menu -->
+    <div id="pauseMenu" class="modal">
+        <div class="modal-content">
+            <h2>Game Paused</h2>
+            <div class="modal-buttons">
+                <button id="resumeBtn" class="btn btn-primary">Resume</button>
+                <button id="quitBtn" class="btn btn-danger">Quit Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="screen">
+        <div class="game-over-content">
+            <h1 id="gameOverTitle">Victory!</h1>
+            <div class="game-over-stats">
+                <div class="stat-row">
+                    <span class="stat-label">Your Score:</span>
+                    <span id="finalPlayerScore" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Opponent Score:</span>
+                    <span id="finalOpponentScore" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Damage Dealt:</span>
+                    <span id="damageDealt" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Experience Gained:</span>
+                    <span id="expGained" class="stat-value">+0 XP</span>
+                </div>
+            </div>
+            <div class="game-over-buttons">
+                <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
+                <button id="mainMenuBtn" class="btn btn-secondary">Main Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard Screen -->
+    <div id="leaderboardScreen" class="screen">
+        <div class="leaderboard-content">
+            <h2>🏆 Leaderboard 🏆</h2>
+            <div class="leaderboard-filter">
+                <button class="filter-btn active" data-filter="wins">Wins</button>
+                <button class="filter-btn" data-filter="score">Score</button>
+            </div>
+            <div id="leaderboardList" class="leaderboard-list"></div>
+            <button id="closeLeaderboardBtn" class="btn btn-secondary">Back</button>
+        </div>
+    </div>
+
+    <!-- How to Play Screen -->
+    <div id="howToPlayScreen" class="screen">
+        <div class="how-to-play-content">
+            <h2>❓ How to Play</h2>
+            <div class="instructions">
+                <div class="instruction-item">
+                    <h3>🎯 Objective</h3>
+                    <p>Defeat your opponent by reducing their health to zero or having more points when time runs out!</p>
+                </div>
+                <div class="instruction-item">
+                    <h3>🕹️ Controls</h3>
+                    <p><strong>Joystick:</strong> Move your character around the arena</p>
+                    <p><strong>⚔️ Attack:</strong> Deal damage to your opponent (15 damage)</p>
+                    <p><strong>🛡️ Defend:</strong> Block incoming attacks and reduce damage</p>
+                    <p><strong>✨ Special:</strong> Powerful attack with cooldown (30 damage)</p>
+                </div>
+                <div class="instruction-item">
+                    <h3>🎮 Game Modes</h3>
+                    <p><strong>Quick Play:</strong> Instantly match with a random opponent</p>
+                    <p><strong>Create Room:</strong> Create a private room and invite friends</p>
+                    <p><strong>Join Room:</strong> Join a friend's room with a code</p>
+                </div>
+                <div class="instruction-item">
+                    <h3>💡 Tips</h3>
+                    <p>• Use defend when you see your opponent attacking</p>
+                    <p>• Special attack has a cooldown - use it wisely!</p>
+                    <p>• Keep moving to avoid enemy attacks</p>
+                    <p>• Watch your health and the timer</p>
+                </div>
+            </div>
+            <button id="closeHowToPlayBtn" class="btn btn-primary">Got it!</button>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="assets/js/game.js"></script>
+</body>
+</html>
